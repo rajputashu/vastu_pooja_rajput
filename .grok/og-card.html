@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  @font-face {
+    font-family: "Cormorant Garamond";
+    src: url("fonts/CormorantGaramond.ttf") format("truetype");
+    font-weight: 300 700;
+    font-style: normal;
+    font-display: block;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: #F5F0E6;
+  }
+
+  .card {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    background: #F5F0E6;
+    overflow: hidden;
+    color: #263A32;
+  }
+
+  /* Plaster: warm light in the court, softer shade toward the eaves. */
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 62% 70% at 50% 46%, rgba(255, 252, 246, 0.95) 0%, rgba(245, 240, 230, 0) 70%),
+      linear-gradient(180deg, rgba(38, 58, 50, 0.05) 0%, rgba(38, 58, 50, 0) 18%, rgba(38, 58, 50, 0) 78%, rgba(38, 58, 50, 0.06) 100%);
+    pointer-events: none;
+  }
+
+  .grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+  }
+
+  .frame {
+    position: absolute;
+    inset: 28px;
+    border: 1px solid rgba(116, 134, 106, 0.55);
+    pointer-events: none;
+  }
+
+  .tick {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+  }
+  .tick::before, .tick::after {
+    content: "";
+    position: absolute;
+    background: #C5A56A;
+  }
+  .tick::before { width: 18px; height: 1.5px; }
+  .tick::after { width: 1.5px; height: 18px; }
+  .tick.tl { top: 22px; left: 22px; }
+  .tick.tr { top: 22px; right: 22px; transform: scaleX(-1); }
+  .tick.bl { bottom: 22px; left: 22px; transform: scaleY(-1); }
+  .tick.br { bottom: 22px; right: 22px; transform: scale(-1); }
+
+  /* Verandah: stone piers and a teak-and-gold chajja, left and right. */
+  .wing {
+    position: absolute;
+    top: 72px;
+    width: 168px;
+    height: 470px;
+  }
+  .wing.left { left: 58px; }
+  .wing.right { right: 58px; }
+
+  .chajja {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 22px;
+    background: #263A32;
+  }
+  .chajja span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: #C5A56A;
+  }
+
+  .pier {
+    position: absolute;
+    top: 22px;
+    bottom: 18px;
+    width: 26px;
+    background: #263A32;
+  }
+  .pier:nth-child(2) { left: 8px; }
+  .pier:nth-child(3) { left: 71px; }
+  .pier:nth-child(4) { left: 134px; }
+
+  .pier i {
+    position: absolute;
+    left: -6px;
+    right: -6px;
+    height: 8px;
+    background: #74866A;
+  }
+  .pier i.cap { top: 0; }
+  .pier i.base { bottom: 0; }
+
+  .plinth {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 18px;
+    background: #263A32;
+  }
+  .plinth span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: #C5A56A;
+  }
+
+  .lockup {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .mark {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 22px;
+  }
+
+  .name {
+    font-family: "Cormorant Garamond", "Liberation Serif", serif;
+    font-weight: 500;
+    font-size: 108px;
+    line-height: 0.82;
+    letter-spacing: 0.18em;
+    margin-right: -0.18em;
+    color: #263A32;
+  }
+
+  .rule {
+    width: 168px;
+    height: 1px;
+    background: #C5A56A;
+    margin: 22px 0 18px;
+  }
+
+  .sub {
+    font-family: "Cormorant Garamond", "Liberation Serif", serif;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 1;
+    letter-spacing: 0.46em;
+    margin-right: -0.46em;
+    color: #263A32;
+  }
+
+  .tag {
+    margin-top: 20px;
+    font-family: "Cormorant Garamond", "Liberation Serif", serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 22px;
+    letter-spacing: 0.14em;
+    margin-right: -0.14em;
+    color: #74866A;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <svg class="grain" xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+      <filter id="n">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#n)"/>
+    </svg>
+    <div class="frame"></div>
+    <i class="tick tl"></i><i class="tick tr"></i><i class="tick bl"></i><i class="tick br"></i>
+
+    <div class="wing left" aria-hidden="true">
+      <div class="chajja"><span></span></div>
+      <div class="pier"><i class="cap"></i><i class="base"></i></div>
+      <div class="pier"><i class="cap"></i><i class="base"></i></div>
+      <div class="pier"><i class="cap"></i><i class="base"></i></div>
+      <div class="plinth"><span></span></div>
+    </div>
+    <div class="wing right" aria-hidden="true">
+      <div class="chajja"><span></span></div>
+      <div class="pier"><i class="cap"></i><i class="base"></i></div>
+      <div class="pier"><i class="cap"></i><i class="base"></i></div>
+      <div class="pier"><i class="cap"></i><i class="base"></i></div>
+      <div class="plinth"><span></span></div>
+    </div>
+
+    <div class="lockup">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" fill="#263A32"/>
+        <rect x="5" y="5" width="22" height="22" fill="#F5F0E6"/>
+        <rect x="11" y="11" width="10" height="10" fill="#263A32"/>
+        <rect x="14" y="14" width="4" height="4" fill="#C5A56A"/>
+      </svg>
+      <div class="name">AARANYA</div>
+      <div class="rule"></div>
+      <div class="sub">VASTU</div>
+      <div class="tag">A studio of quiet spaces</div>
+    </div>
+  </div>
+</body>
+</html>

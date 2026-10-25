@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.output/
+.vercel/
+.nitro/
+.env
+.env.local
+.env.*.local
+__pycache__/
+*.py[cod]
+.venv/
+backend/.venv/
+.DS_Store
+screenshots/
